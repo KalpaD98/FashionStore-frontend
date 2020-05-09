@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {RouterModule} from '@angular/router'
+import {RouterModule} from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import appRoutes from 'src/app/routes/app-routes';
@@ -9,6 +9,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CategoryComponent } from './category/category.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { CategoryComponent } from './category/category.component';
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
