@@ -9,6 +9,7 @@ import {NgForm} from "@angular/forms";
 export class LoginComponent implements OnInit {
   isLoading = false
   isLoginMode = true
+  isConfirmationValid = true
   error: string = null
 
   constructor() {
@@ -22,10 +23,15 @@ export class LoginComponent implements OnInit {
       f.reset()
       return;
     }
+
     const email = f.value.email
     const password = f.value.password
     const confirmationPassword = f.value.confirmationPassword
 
+    if(password !== confirmationPassword){
+      this.isConfirmationValid = false
+      return;
+    }
 
     console.log(`${email} ${password} ${confirmationPassword}`)
 
