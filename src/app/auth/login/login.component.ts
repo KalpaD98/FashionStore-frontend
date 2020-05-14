@@ -20,22 +20,37 @@ export class LoginComponent implements OnInit {
 
   onSubmit(f: NgForm) {
     if (!f.valid) {
-      f.reset()
+      f.resetForm()
       return;
     }
-
     const email = f.value.email
     const password = f.value.password
     const confirmationPassword = f.value.confirmationPassword
 
-    if(password !== confirmationPassword){
+    if (!this.isLoginMode && password !== confirmationPassword) {
       this.isConfirmationValid = false
+      f.resetForm()
       return;
     }
 
     console.log(`${email} ${password} ${confirmationPassword}`)
 
   }
+
+  onConfirmation(f: NgForm) {
+    const password = f.value.password
+    const confirmationPassword = f.value.confirmationPassword
+    this.isConfirmationValid = password === confirmationPassword;
+  }
+
+  loginUser() {
+
+  }
+
+  signUpUser() {
+
+  }
+
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode
