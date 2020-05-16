@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
+import {AuthService} from "../auth.service";
+import {User} from "../../models/user.model";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,7 @@ export class LoginComponent implements OnInit {
   isConfirmationValid = true
   error: string = null
 
-  constructor() {
+  constructor(private authService :AuthService) {
   }
 
   ngOnInit(): void {
@@ -32,6 +34,14 @@ export class LoginComponent implements OnInit {
       f.resetForm()
       return;
     }
+    const user = {email:email,password:password}
+
+    if(this.isLoginMode){
+
+    } else {
+      this.signUpUser(user)
+    }
+
 
     console.log(`${email} ${password} ${confirmationPassword}`)
 
@@ -47,8 +57,8 @@ export class LoginComponent implements OnInit {
 
   }
 
-  signUpUser() {
-
+  signUpUser(user:User) {
+    this.authService.signup(user)
   }
 
 
