@@ -60,7 +60,7 @@
         color="accent"
         type="button"
         *ngIf="!isLoading"
-        (click)="onSwitchMode()"
+        (click)="onSwitchMode(f)"
       >
         {{isLoginMode ? 'I dont have an account' : 'Already have an account' }}
       </button>

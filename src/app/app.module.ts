@@ -7,7 +7,6 @@ import appRoutes from 'src/app/routes/app-routes';
 import {AppComponent} from './app.component';
 import {NavbarComponent} from './navbar/navbar.component';
 import {LoginComponent} from './auth/login/login.component';
-import {RegisterComponent} from './register/register.component';
 import {CategoryComponent} from './category/category.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -19,7 +18,6 @@ import {HttpClientModule} from "@angular/common/http";
     AppComponent,
     NavbarComponent,
     LoginComponent,
-    RegisterComponent,
     CategoryComponent
   ],
   imports: [
