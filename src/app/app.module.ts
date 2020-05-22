@@ -13,12 +13,15 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularMaterialModule} from "./angular-material/angular-material.module";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./auth/auth.interceptor";
+import {ErrorComponent} from "./error/error.component";
+import {ErrorInterceptor} from "./error/error.interceptor";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     LoginComponent,
+    ErrorComponent,
     CategoryComponent
   ],
   imports: [
@@ -32,6 +35,7 @@ import {AuthInterceptor} from "./auth/auth.interceptor";
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })
