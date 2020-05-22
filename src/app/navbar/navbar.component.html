@@ -22,8 +22,11 @@
 
 
     <ul class="navbar-nav">
-      <li class="nav-item">
+      <li *ngIf="!isAuthenticated" class="nav-item">
         <a class="nav-link" routerLink="/login" routerLinkActive="active">Authorization</a>
+      </li>
+      <li *ngIf="isAuthenticated" class="nav-item">
+        <a class="nav-link" (click)="logout()">LogOut</a>
       </li>
     </ul>
 

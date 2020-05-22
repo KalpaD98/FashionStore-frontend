@@ -7,18 +7,19 @@ import {AuthService} from "../auth/auth.service";
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit , OnDestroy{
+export class NavbarComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService) {
   }
 
   collapsed = true;
   isAuthenticated = false;
-  private authStatusSubscription : Subscription;
+  private authStatusSubscription: Subscription;
 
   toggleCollapsed(): void {
     this.collapsed = !this.collapsed;
   }
+
   ngOnInit(): void {
     this.isAuthenticated = this.authService.isAuthenticated
     this.authStatusSubscription = this.authService.authStatusListener.subscribe(
@@ -29,6 +30,10 @@ export class NavbarComponent implements OnInit , OnDestroy{
 
   ngOnDestroy(): void {
     this.authStatusSubscription.unsubscribe();
+  }
+
+  logout() {
+    this.authService.logout()
   }
 }
 
