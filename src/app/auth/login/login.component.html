@@ -2,6 +2,19 @@
   <mat-card>
     <mat-spinner *ngIf="isLoading"></mat-spinner>
     <form *ngIf="!isLoading" #f="ngForm" (submit)="onSubmit(f)">
+      <mat-form-field *ngIf="!isLoginMode">
+        <input
+          matInput
+          type="text"
+          placeholder="Username"
+          name="username"
+          ngModel
+          minlength="3"
+          #username="ngModel"
+          required
+        >
+        <mat-error *ngIf="username.invalid">Please enter a valid username</mat-error>
+      </mat-form-field>
       <mat-form-field>
         <input
           matInput

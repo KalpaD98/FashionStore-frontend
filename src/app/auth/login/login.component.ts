@@ -3,13 +3,14 @@ import {NgForm} from "@angular/forms";
 import {AuthService} from "../auth.service";
 import {User} from "../../models/user.model";
 import {Subscription} from "rxjs";
+import {AuthData} from "../../models/auth-data.model";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit , OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy {
   isLoading = false
   isLoginMode = true
   isConfirmationValid = true
@@ -31,25 +32,27 @@ export class LoginComponent implements OnInit , OnDestroy {
       return;
     }
     const email = f.value.email
+    const username = f.value.username
     const password = f.value.password
     const confirmationPassword = f.value.confirmationPassword
+
 
     if (!this.isLoginMode && password !== confirmationPassword) {
       this.isConfirmationValid = false
       f.resetForm()
       return;
     }
-    const user = {email: email, password: password}
+
 
     if (this.isLoginMode) {
-      this.loginUser(user)
+      const authData = {email: email, password: password}
+      this.loginUser(authData)
 
     } else {
+      const user = {email: email, password: password, username: username}
+
       this.signUpUser(user)
     }
-
-
-    console.log(`${email} ${password} ${confirmationPassword}`)
 
   }
 
@@ -59,8 +62,8 @@ export class LoginComponent implements OnInit , OnDestroy {
     this.isConfirmationValid = password === confirmationPassword;
   }
 
-  loginUser(user: User) {
-    this.authService.login(user)
+  loginUser(authData: AuthData) {
+    this.authService.login(authData)
   }
 
   signUpUser(user: User) {
