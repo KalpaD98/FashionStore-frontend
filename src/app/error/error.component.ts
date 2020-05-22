@@ -3,8 +3,7 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-error',
-  templateUrl: './error.component.html',
-  styleUrls: ['./error.component.css']
+  templateUrl: './error.component.html'
 })
 export class ErrorComponent implements OnInit {
 
