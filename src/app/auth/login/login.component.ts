@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {AuthService} from "../auth.service";
 import {User} from "../../models/user.model";
@@ -9,7 +9,7 @@ import {Subscription} from "rxjs";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit , OnDestroy {
   isLoading = false
   isLoginMode = true
   isConfirmationValid = true
@@ -75,5 +75,9 @@ export class LoginComponent implements OnInit {
 
   onHandleError() {
     this.error = null
+  }
+
+  ngOnDestroy(): void {
+    this.authStatusSubscription.unsubscribe()
   }
 }

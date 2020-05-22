@@ -41,11 +41,12 @@ export class AuthService {
     this.http.post<{ message: string, user: any }>(this.url + '/auth/signup', user).subscribe(
       response => {
         //TODO:auto login
-        console.log(response)
+        this.login(user)
       },
       error => {
+        this._authStatusListener.next(false);
+        this.router.navigate(['/login'])
         //TODO:redirect to sign up with error
-
       }
     )
   }
@@ -72,6 +73,15 @@ export class AuthService {
     )
   }
 
+  logout() {
+    this._userId = null;
+    this._token = null;
+    this._isAuthenticated = false;
+    this._authStatusListener.next(false);
+    clearTimeout(this.tokenTimer);
+    this.clearAuthData();
+    this.router.navigate(['/']);
+  }
 
   autoAuthUser() {
     const authInformation = this.getAuthData()
@@ -117,17 +127,6 @@ export class AuthService {
       expiration: new Date(expiration),
       userId: userId
     };
-  }
-
-
-  logout() {
-    this._userId = null;
-    this._token = null;
-    this._isAuthenticated = false;
-    this._authStatusListener.next(false);
-    clearTimeout(this.tokenTimer);
-    this.clearAuthData();
-    this.router.navigate(['/']);
   }
 
   setAuthTimer(duration: number) {
