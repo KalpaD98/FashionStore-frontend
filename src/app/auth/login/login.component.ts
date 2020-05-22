@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
     const user = {email: email, password: password}
 
     if (this.isLoginMode) {
+      this.loginUser(user)
 
     } else {
       this.signUpUser(user)
@@ -53,8 +54,8 @@ export class LoginComponent implements OnInit {
     this.isConfirmationValid = password === confirmationPassword;
   }
 
-  loginUser() {
-
+  loginUser(user: User) {
+    this.authService.login(user)
   }
 
   signUpUser(user: User) {

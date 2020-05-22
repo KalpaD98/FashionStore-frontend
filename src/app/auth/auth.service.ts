@@ -16,9 +16,23 @@ export class AuthService {
   signup(user: User) {
     this.http.post(this.url + '/auth/signup', user).subscribe(
       value => {
+        //TODO:auto login
         console.log(value)
       },
       error => {
+        //TODO:redirect to sign up with error
+
+      }
+    )
+  }
+
+  login(user: User) {
+    this.http.post(this.url + '/auth/login', user).subscribe(
+      value => {
+        console.log(value)
+      },
+      error => {
+
       }
     )
   }
