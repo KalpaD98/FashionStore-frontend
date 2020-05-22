@@ -11,6 +11,7 @@ export class AuthService {
 
   private _token: string;
   private _authStatusListener = new Subject<boolean>();
+  // used to make isLoading false inside a component whenever auth status change
   private _isAuthenticated = false;
   private tokenTimer;
   private _userId: string;
@@ -72,8 +73,21 @@ export class AuthService {
   }
 
 
-  autoAuthUser(){
+  autoAuthUser() {
     const authInformation = this.getAuthData()
+    if (!authInformation) {
+      return
+    }
+    const now = new Date();
+    const expiresIn = authInformation.expiration.getTime() - now.getTime()
+
+    if (expiresIn > 0) {
+      this.setAuthTimer(expiresIn / 1000); // convert mili sec to seconds
+      this._token = authInformation.token;
+      this._isAuthenticated = true;
+      this._userId = authInformation.userId;
+      this._authStatusListener.next(true);
+    }
   }
 
   protected saveAuthData(token: string, expirationDate: Date, userId: string) {

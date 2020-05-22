@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {AuthService} from "../auth.service";
 import {User} from "../../models/user.model";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -13,11 +14,15 @@ export class LoginComponent implements OnInit {
   isLoginMode = true
   isConfirmationValid = true
   error: string = null
+  private authStatusSubscription: Subscription;
 
   constructor(private authService: AuthService) {
   }
 
   ngOnInit(): void {
+    this.authStatusSubscription = this.authService.authStatusListener.subscribe((authStatus) => {
+      this.isLoading = false;
+    });
   }
 
   onSubmit(f: NgForm) {
