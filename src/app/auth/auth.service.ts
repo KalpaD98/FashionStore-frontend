@@ -3,7 +3,6 @@ import {HttpClient} from "@angular/common/http";
 import {User} from "../models/user.model";
 import {Subject} from "rxjs";
 import {Router} from "@angular/router";
-import {AuthData} from "../models/auth-data.model";
 
 @Injectable({
   providedIn: 'root'
@@ -52,7 +51,7 @@ export class AuthService {
     )
   }
 
-  login(user: AuthData) {
+  login(user: User) {
     this.http.post<{ token: string, expiresIn: number, userId: string }>(this.url + '/auth/login', user).subscribe(
       response => {
         this._token = (response.token)

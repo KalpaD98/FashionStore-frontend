@@ -3,7 +3,6 @@ import {NgForm} from "@angular/forms";
 import {AuthService} from "../auth.service";
 import {User} from "../../models/user.model";
 import {Subscription} from "rxjs";
-import {AuthData} from "../../models/auth-data.model";
 
 @Component({
   selector: 'app-login',
@@ -62,8 +61,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isConfirmationValid = password === confirmationPassword;
   }
 
-  loginUser(authData: AuthData) {
-    this.authService.login(authData)
+  loginUser(user: User) {
+    this.authService.login(user)
   }
 
   signUpUser(user: User) {
