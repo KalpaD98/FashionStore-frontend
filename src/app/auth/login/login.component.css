@@ -1,5 +1,6 @@
 .spacer{
   margin-top: 5rem;
+  margin-bottom: auto;
 }
 
 .container{
@@ -7,6 +8,11 @@
   width: 80%;
   margin: auto;
 }
+
+/*.bottom-spacing{*/
+/*  margin-bottom: 231px;*/
+/*  !*margin-bottom: 118px;*!*/
+/*}*/
 
 form{
   text-align: center;

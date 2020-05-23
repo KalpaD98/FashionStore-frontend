@@ -10,8 +10,10 @@ import {Router} from "@angular/router";
 export class AuthService {
 
   private _token: string;
+
   private _authStatusListener = new Subject<boolean>();
-  // used to make isLoading false inside a component whenever auth status change
+  // used to make notify other components whenever the auth status change and take actions accordingly
+
   private _isAuthenticated = false;
   private tokenTimer;
   private _userId: string;
@@ -38,7 +40,7 @@ export class AuthService {
 
 
   signup(user: User) {
-    this.http.put<{ message: string, user: any }>(this.url + '/auth/signup', user).subscribe(
+    this.http.put<{ message: string, user: any }>(this.url + '/api/dev/users/signup', user).subscribe(
       response => {
         //TODO:auto login
         this.login(user)
@@ -52,7 +54,7 @@ export class AuthService {
   }
 
   login(user: User) {
-    this.http.post<{ token: string, expiresIn: number, userId: string }>(this.url + '/auth/login', user).subscribe(
+    this.http.post<{ token: string, expiresIn: number, userId: string }>(this.url + '/api/dev/users/login', user).subscribe(
       response => {
         this._token = (response.token)
 

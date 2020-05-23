@@ -15,6 +15,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./auth/auth.interceptor";
 import {ErrorComponent} from "./error/error.component";
 import {ErrorInterceptor} from "./error/error.interceptor";
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {ErrorInterceptor} from "./error/error.interceptor";
     NavbarComponent,
     LoginComponent,
     ErrorComponent,
-    CategoryComponent
+    CategoryComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
