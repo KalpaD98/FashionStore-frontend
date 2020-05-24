@@ -3,7 +3,6 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ItemCategory} from "../../models/item.model";
 import {Subscription} from "rxjs";
 import {AuthService} from "../../auth/auth.service";
-import validate = WebAssembly.validate;
 import {mimeType} from "../validators/mime-type.validator";
 
 @Component({
@@ -12,7 +11,6 @@ import {mimeType} from "../validators/mime-type.validator";
   styleUrls: ['./create-item.component.css']
 })
 export class CreateItemComponent implements OnInit {
-  bottomSpacing = 0;
   isLoading = false;
   form: FormGroup;
   imagePreview: string;
@@ -21,6 +19,7 @@ export class CreateItemComponent implements OnInit {
 
 
   constructor(private authService: AuthService) {
+
   }
 
   ngOnInit(): void {
@@ -29,24 +28,35 @@ export class CreateItemComponent implements OnInit {
       .subscribe(authStatus => {
         this.isLoading = false;
       });
-
-    this.form = new FormGroup({
-      title: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)]
-      }),
-      category: new FormControl(null, [Validators.required]),
-      description: new FormControl(null, {validators: [Validators.required, Validators.minLength(10)]}),
-      image: new FormControl(null, {
-        validators: [Validators.required],
-        asyncValidators: [mimeType]
-      })
-    });
+    this.loadForm();
   }
 
   onSavePost() {
+    this.form.reset()
+    this.form.clearValidators()
+    this.form.clearAsyncValidators()
   }
 
-  onImagePicked($event: Event) {
+  loadForm() {
+    this.form = new FormGroup({
+      title: new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
+      category: new FormControl(null, [Validators.required]),
+      type: new FormControl(null, [Validators.required]),
+      price: new FormControl(null, [Validators.required]),
+      quantity: new FormControl(null),
+      description: new FormControl(null, [Validators.required, Validators.minLength(10)]),
+      image: new FormControl(null, [Validators.required], mimeType)
+    });
+  }
 
+  onImagePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({image: file});
+    this.form.get('image').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 }

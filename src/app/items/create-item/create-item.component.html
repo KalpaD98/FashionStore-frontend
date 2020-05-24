@@ -11,12 +11,28 @@
 
       <mat-form-field>
         <mat-label>Category</mat-label>
-        <mat-select formControlName="Category">
-          <mat-option value="" disabled>Choose Category</mat-option>
+        <mat-select formControlName="category">
+          <mat-option [value]="null" disabled>Choose Category</mat-option>
           <mat-option *ngFor="let category of categories" [value]="category">
             {{category}}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="form.get('category').invalid">Please enter a valid item title</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="text" formControlName="type" placeholder="Item Type">
+        <mat-error *ngIf="form.get('type').invalid">Please enter a valid item type</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="number" formControlName="price" placeholder="Item Price">
+        <mat-error *ngIf="form.get('price').invalid">Please enter a valid Number</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="number" formControlName="quantity" placeholder="Item Quantity">
+        <mat-error *ngIf="form.get('quantity').invalid">Please enter a valid Quantity</mat-error>
       </mat-form-field>
 
       <mat-form-field>
@@ -38,6 +54,4 @@
     </form>
   </mat-card>
 </div>
-<div [style.margin-bottom.px]="bottomSpacing">
 
-</div>
