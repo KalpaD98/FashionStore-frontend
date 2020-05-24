@@ -16,6 +16,7 @@ import {AuthInterceptor} from "./auth/auth.interceptor";
 import {ErrorComponent} from "./error/error.component";
 import {ErrorInterceptor} from "./error/error.interceptor";
 import { FooterComponent } from './footer/footer.component';
+import { CreateItemComponent } from './items/create-item/create-item.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { FooterComponent } from './footer/footer.component';
     LoginComponent,
     ErrorComponent,
     CategoryComponent,
-    FooterComponent
+    FooterComponent,
+    CreateItemComponent
   ],
   imports: [
     BrowserModule,
