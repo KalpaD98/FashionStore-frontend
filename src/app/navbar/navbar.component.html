@@ -26,11 +26,17 @@
         <li *ngIf="!isAuthenticated" class="nav-item">
           <a class="nav-link" routerLink="/login" routerLinkActive="active">Authorization</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link"  routerLink="/create-item">Create Item</a>
+        </li>
         <li *ngIf="isAuthenticated" class="nav-item">
           <a class="nav-link" (click)="logout()">Logout</a>
         </li>
+
       </ul>
 
     </div>
   </nav>
 </header>
+
+

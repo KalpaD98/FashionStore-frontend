@@ -15,8 +15,8 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./auth/auth.interceptor";
 import {ErrorComponent} from "./error/error.component";
 import {ErrorInterceptor} from "./error/error.interceptor";
-import { FooterComponent } from './footer/footer.component';
-import { CreateItemComponent } from './items/create-item/create-item.component';
+import {FooterComponent} from './footer/footer.component';
+import {CreateItemComponent} from './items/create-item/create-item.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,8 @@ import { CreateItemComponent } from './items/create-item/create-item.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
