@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ItemCategory} from "../../models/item.model";
 import {Subscription} from "rxjs";
 import {AuthService} from "../../auth/auth.service";
 import validate = WebAssembly.validate;
+import {mimeType} from "../validators/mime-type.validator";
 
 @Component({
   selector: 'app-create-item',
@@ -19,7 +20,8 @@ export class CreateItemComponent implements OnInit {
   private authStatusSub: Subscription;
 
 
-  constructor(private authService:AuthService) { }
+  constructor(private authService: AuthService) {
+  }
 
   ngOnInit(): void {
     this.authStatusSub = this.authService
@@ -32,11 +34,11 @@ export class CreateItemComponent implements OnInit {
       title: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
       }),
-      category: new FormControl(null,[Validators.required]),
-      description: new FormControl(null, { validators: [Validators.required,Validators.minLength(10)] }),
+      category: new FormControl(null, [Validators.required]),
+      description: new FormControl(null, {validators: [Validators.required, Validators.minLength(10)]}),
       image: new FormControl(null, {
         validators: [Validators.required],
-        // asyncValidators: [mimeType]
+        asyncValidators: [mimeType]
       })
     });
   }
