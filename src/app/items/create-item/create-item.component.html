@@ -49,7 +49,8 @@
         <img [src]="imagePreview" [alt]="form.value.title">
       </div>
 
-      <button id="create-button" mat-raised-button color="accent" type="submit">Create</button>
+      <button [disabled]="form.invalid" id="create-button" mat-raised-button color="accent" type="submit">Create
+      </button>
 
     </form>
   </mat-card>
