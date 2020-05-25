@@ -19,37 +19,42 @@ export class ItemsService {
   getItems() {
   }
 
-  getItem(){
+  getItem() {
 
   }
 
-  addItem(item){
+  addItem(item) {
     const itemData = this.getItemData(item)
+    this.http.post<{ message: string, item: Item }>(this.BACKEND_URL + '/api/dev/items', itemData).subscribe(
+      responseData => {
+        console.log(responseData)
+      }, error => {
+        console.log(error)
+      }
+    )
+  }
 
+  updateItem() {
 
   }
 
-  updateItem(){
+  deleteItem() {
 
   }
 
-  deleteItem(){
-
-  }
-
-  get itemsUpdateListener(){
+  get itemsUpdateListener() {
     return this.itemsUpdated.asObservable()
   }
 
-  getItemData(item){
+  getItemData(item) {
     const itemData = new FormData();
-    itemData.append('title',item.title);
-    itemData.append('category',item.category);
-    itemData.append('type',item.type);
-    itemData.append('price',item.price);
-    itemData.append('quantity',item.quantity);
-    itemData.append('description',item.description);
-    itemData.append('image',item.image);
+    itemData.append('title', item.title);
+    itemData.append('category', item.category);
+    itemData.append('type', item.type);
+    itemData.append('price', item.price);
+    itemData.append('quantity', item.quantity);
+    itemData.append('description', item.description);
+    itemData.append('image', item.image);
 
     return itemData
   }
