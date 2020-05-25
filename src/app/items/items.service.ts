@@ -17,10 +17,11 @@ export class ItemsService {
   }
 
   getItems() {
+    this.http.get(this.BACKEND_URL + '/api/dev/items').subscribe()
   }
 
-  getItem() {
-
+  getItem(id) {
+    this.http.get(this.BACKEND_URL + '/api/dev/items' + `/:${id}`).subscribe()
   }
 
   addItem(item) {
@@ -28,19 +29,19 @@ export class ItemsService {
     this.http.post<{ message: string, item: Item }>(this.BACKEND_URL + '/api/dev/items', itemData).subscribe(
       responseData => {
         console.log(responseData)
-
       }, error => {
         console.log(error)
       }
     )
   }
 
-  updateItem() {
+  updateItem(item) {
+    const itemData = this.getItemData(item)
 
   }
 
-  deleteItem() {
-
+  deleteItem(id) {
+    this.http.delete(this.BACKEND_URL + '/api/dev/items' + `/:${id}`).subscribe()
   }
 
   get itemsUpdateListener() {
