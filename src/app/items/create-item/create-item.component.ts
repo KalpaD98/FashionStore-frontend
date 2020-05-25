@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormControl, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
 import {ItemCategory} from "../../models/item.model";
 import {Subscription} from "rxjs";
 import {AuthService} from "../../auth/auth.service";
@@ -10,8 +10,9 @@ import {mimeType} from "../validators/mime-type.validator";
   templateUrl: './create-item.component.html',
   styleUrls: ['./create-item.component.css']
 })
-export class CreateItemComponent implements OnInit {
+export class CreateItemComponent implements OnInit, OnDestroy {
   isLoading = false;
+  isCreateMode = true
   form: FormGroup;
   imagePreview: string;
   categories = Object.keys(ItemCategory).map(key => ItemCategory[key])
@@ -21,7 +22,6 @@ export class CreateItemComponent implements OnInit {
   constructor(private authService: AuthService) {
 
   }
-
   ngOnInit(): void {
     this.authStatusSub = this.authService
       .authStatusListener
@@ -31,10 +31,21 @@ export class CreateItemComponent implements OnInit {
     this.loadForm();
   }
 
-  onSavePost() {
-    this.form.reset()
-    this.form.clearValidators()
-    this.form.clearAsyncValidators()
+  onCreateItem(formDirective: FormGroupDirective) {
+
+    if (this.form.invalid) {
+      formDirective.resetForm();
+      this.form.reset();
+      return;
+    }
+    this.isLoading = true;
+
+    if(this.isCreateMode){
+    }
+
+    formDirective.resetForm();
+    this.form.reset();
+
   }
 
   loadForm() {
@@ -58,5 +69,9 @@ export class CreateItemComponent implements OnInit {
       this.imagePreview = reader.result as string;
     };
     reader.readAsDataURL(file);
+  }
+
+  ngOnDestroy(): void {
+    this.authStatusSub.unsubscribe()
   }
 }
