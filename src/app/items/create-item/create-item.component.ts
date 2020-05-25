@@ -4,6 +4,7 @@ import {ItemCategory} from "../../models/item.model";
 import {Subscription} from "rxjs";
 import {AuthService} from "../../auth/auth.service";
 import {mimeType} from "../validators/mime-type.validator";
+import {ItemsService} from "../items.service";
 
 @Component({
   selector: 'app-create-item',
@@ -14,14 +15,16 @@ export class CreateItemComponent implements OnInit, OnDestroy {
   isLoading = false;
   isCreateMode = true
   form: FormGroup;
+  postId:string;
   imagePreview: string;
   categories = Object.keys(ItemCategory).map(key => ItemCategory[key])
   private authStatusSub: Subscription;
 
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,private itemsService:ItemsService) {
 
   }
+
   ngOnInit(): void {
     this.authStatusSub = this.authService
       .authStatusListener
@@ -38,13 +41,30 @@ export class CreateItemComponent implements OnInit, OnDestroy {
       this.form.reset();
       return;
     }
+
+    let item  = {
+      postId:this.postId,
+      title:this.form.value.title,
+      category:this.form.value.category,
+      type:this.form.value.type,
+      price:this.form.value.price,
+      quantity:this.form.value.quantity,
+      description:this.form.value.description,
+      image:this.form.value.image,
+    }
+
     this.isLoading = true;
 
-    if(this.isCreateMode){
+    if (this.isCreateMode) {
+      this.itemsService.addItem(item)
+    } else {
     }
+
 
     formDirective.resetForm();
     this.form.reset();
+    this.isLoading = false;
+
 
   }
 

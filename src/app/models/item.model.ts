@@ -8,6 +8,7 @@ export enum ItemCategory {
 }
 
 export interface Item {
+  postId?: string,
   title: string,
   category: ItemCategory,
   type: string
@@ -16,5 +17,6 @@ export interface Item {
   imagePaths: [string] | string,
   quantity: number,
   averageRating?: boolean | number,
+  numberOfRatings?: number,
   creator: string
 }

@@ -23,7 +23,9 @@ export class ItemsService {
 
   }
 
-  addItem(){
+  addItem(item){
+    const itemData = this.getItemData(item)
+
 
   }
 
@@ -37,6 +39,19 @@ export class ItemsService {
 
   get itemsUpdateListener(){
     return this.itemsUpdated.asObservable()
+  }
+
+  getItemData(item){
+    const itemData = new FormData();
+    itemData.append('title',item.title);
+    itemData.append('category',item.category);
+    itemData.append('type',item.type);
+    itemData.append('price',item.price);
+    itemData.append('quantity',item.quantity);
+    itemData.append('description',item.description);
+    itemData.append('image',item.image);
+
+    return itemData
   }
 
 

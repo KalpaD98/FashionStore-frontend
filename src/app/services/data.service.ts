@@ -5,7 +5,7 @@ import {catchError, map} from 'rxjs/operators';
 import {AppError} from '../common/app-error';
 import {NotFoundError} from '../common/not-found-error';
 import {BadInput} from '../common/bad-input';
-
+//TODO:have to refactor to fit all my services
 @Injectable({
   providedIn: 'root'
 })
