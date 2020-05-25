@@ -28,6 +28,7 @@ export class ItemsService {
     this.http.post<{ message: string, item: Item }>(this.BACKEND_URL + '/api/dev/items', itemData).subscribe(
       responseData => {
         console.log(responseData)
+
       }, error => {
         console.log(error)
       }
@@ -54,8 +55,7 @@ export class ItemsService {
     itemData.append('price', item.price);
     itemData.append('quantity', item.quantity);
     itemData.append('description', item.description);
-    itemData.append('image', item.image);
-
+    itemData.append('image', item.image, item.title);
     return itemData
   }
 

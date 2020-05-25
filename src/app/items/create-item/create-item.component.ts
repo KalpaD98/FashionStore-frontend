@@ -56,16 +56,14 @@ export class CreateItemComponent implements OnInit, OnDestroy {
     this.isLoading = true;
 
     if (this.isCreateMode) {
-      this.itemsService.addItem(item)
+      this.itemsService.addItem(item);
     } else {
+      this.itemsService.updateItem();
     }
-
 
     formDirective.resetForm();
     this.form.reset();
     this.isLoading = false;
-
-
   }
 
   loadForm() {

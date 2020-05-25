@@ -18,5 +18,5 @@ export interface Item {
   quantity: number,
   averageRating?: boolean | number,
   numberOfRatings?: number,
-  creator: string
+  creator?: string
 }
