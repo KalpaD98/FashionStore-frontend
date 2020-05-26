@@ -1,10 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
-import {ItemCategory} from "../../models/item.model";
+import {Item, ItemCategory} from "../../models/item.model";
 import {Subscription} from "rxjs";
 import {AuthService} from "../../auth/auth.service";
 import {mimeType} from "../validators/mime-type.validator";
 import {ItemsService} from "../items.service";
+import {ActivatedRoute, ParamMap} from "@angular/router";
 
 @Component({
   selector: 'app-create-item',
@@ -16,14 +17,18 @@ export class CreateItemComponent implements OnInit, OnDestroy {
   isCreateMode = true
   form: FormGroup;
   itemId: string;
+  item: Item;
   recentlyCreatedId: string;
   imagePreview: string;
   categories = Object.keys(ItemCategory).map(key => ItemCategory[key])
   private authStatusSub: Subscription;
 
 
-  constructor(private authService: AuthService, private itemsService: ItemsService) {
-
+  constructor(
+    private authService: AuthService,
+    private itemsService: ItemsService,
+    private route: ActivatedRoute
+  ) {
   }
 
   ngOnInit(): void {
@@ -33,6 +38,35 @@ export class CreateItemComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       });
     this.loadForm();
+
+
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('itemId')) {
+        this.isCreateMode = false;
+        this.itemId = paramMap.get('itemId');
+        this.isLoading = true;
+
+        this.itemsService.getItem(this.itemId).subscribe(
+          response => {
+            this.item = response.item
+            this.form.patchValue({
+              title: this.item.title,
+              category: this.item.category,
+              type: this.item.type,
+              price: this.item.price,
+              quantity: this.item.quantity,
+              description: this.item.description,
+              image: this.item.imagePath
+
+            })
+          }
+        )
+      } else {
+        this.isCreateMode = true;
+        this.itemId = null;
+      }
+      this.isLoading = false;
+    });
   }
 
   onCreateItem(formDirective: FormGroupDirective) {
@@ -63,7 +97,9 @@ export class CreateItemComponent implements OnInit, OnDestroy {
         console.log(error)
       })
     } else {
-      this.itemsService.updateItem(item);
+      this.itemsService.updateItem(item).subscribe(response => {
+        console.log(response)
+      })
     }
 
     formDirective.resetForm();

@@ -8,6 +8,7 @@ const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'category', component: CategoryComponent},
   {path: 'create-item', component: CreateItemComponent},
+  {path: "edit/:itemId", component: CreateItemComponent},
 ];
 
 export default appRoutes;

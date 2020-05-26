@@ -21,33 +21,38 @@ export class ItemsService {
   }
 
   getItem(id) {
-    this.http.get(this.BACKEND_URL + `/:${id}`).subscribe()
+    return this.http.get<{
+      message: string,
+      item: Item
+    }>(this.BACKEND_URL + `/${id}`)
   }
 
   addItem(item) {
-    const itemData = this.getItemData(item)
+    const itemData = this.getItemData(item, true)
     return this.http.post<{ message: string, savedItem: Item }>(this.BACKEND_URL, itemData)
   }
 
   updateItem(item) {
     const id = item.itemId
-    const itemData = this.getItemData(item)
+    const itemData = this.getItemData(item, false)
 
-    this.http.put(this.BACKEND_URL + `/:${id}`, itemData)
+    return this.http.put<{ message: string, item: Item }>(this.BACKEND_URL + `/${id}`, itemData)
   }
 
   deleteItem(id) {
-    this.http.delete(this.BACKEND_URL + `/:${id}`).subscribe()
+    this.http.delete(this.BACKEND_URL + `/${id}`).subscribe()
   }
 
   get itemsUpdateListener() {
     return this.itemsUpdated.asObservable()
   }
 
-  getItemData(item) {
+  private getItemData(item, isCreateMode) {
     let itemData: Item | FormData
     if (typeof item.image === 'object') {
       itemData = new FormData();
+      if (!isCreateMode)
+        itemData.append('id', item.itemId);
 
       itemData.append('title', item.title);
       itemData.append('category', item.category);
@@ -56,7 +61,7 @@ export class ItemsService {
       itemData.append('quantity', item.quantity);
       itemData.append('description', item.description);
       itemData.append('image', item.image, item.title);
-
+      console.log('image file')
     } else {
       itemData = {
         itemId: item.itemId,
@@ -66,8 +71,10 @@ export class ItemsService {
         price: item.price,
         quantity: item.quantity,
         description: item.description,
-        imagePaths: item.image,
+        imagePath: item.imagePath,
       }
+      console.log('image link')
+
     }
 
     return itemData

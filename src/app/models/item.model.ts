@@ -15,7 +15,7 @@ export interface Item {
   type: string
   price: number,
   description: string,
-  imagePaths: [string] | string,
+  imagePath:  string,
   quantity: number,
   averageRating?: boolean | number,
   numberOfRatings?: number,

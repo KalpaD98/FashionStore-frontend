@@ -1,4 +1,4 @@
-<h1>Create Item</h1>
+<h1>{{isCreateMode ? 'Create' : 'Edit'}} Item</h1>
 <div id="item-created-message" *ngIf="recentlyCreatedId">Item created success fully => id : {{recentlyCreatedId}}</div>
 <div class="container">
   <mat-card>
@@ -52,7 +52,7 @@
 
       <!--      <button [disabled]="form.invalid" id="create-button" mat-raised-button color="accent" type="submit">Create-->
       <!--      </button>-->
-      <button id="create-button" mat-raised-button color="accent" type="submit">Create
+      <button id="create-button" mat-raised-button color="accent" type="submit">{{isCreateMode ? 'Create' : 'Update'}}
       </button>
       <br>
       <button id="generate-value" mat-raised-button color="accent" type="button" (click)="generateFormValues()">Generate
