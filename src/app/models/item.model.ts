@@ -8,7 +8,8 @@ export enum ItemCategory {
 }
 
 export interface Item {
-  postId?: string,
+  _id?:string
+  itemId?: string,
   title: string,
   category: ItemCategory,
   type: string

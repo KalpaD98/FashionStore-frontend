@@ -1,8 +1,9 @@
 <h1>Create Item</h1>
+<div id="item-created-message" *ngIf="recentlyCreatedId">Item created success fully => id : {{recentlyCreatedId}}</div>
 <div class="container">
   <mat-card>
     <mat-spinner *ngIf="isLoading"></mat-spinner>
-    <form [formGroup]="form" #formDirective="ngForm" (submit)="onCreateItem(formDirective)" *ngIf="!isLoading" >
+    <form [formGroup]="form" #formDirective="ngForm" (submit)="onCreateItem(formDirective)" *ngIf="!isLoading">
 
       <mat-form-field>
         <input matInput type="text" formControlName="title" placeholder="Item Title">
@@ -22,7 +23,7 @@
 
       <mat-form-field>
         <input matInput type="text" formControlName="type" placeholder="Item Type">
-        <mat-error >Please enter a valid item type</mat-error>
+        <mat-error>Please enter a valid item type</mat-error>
       </mat-form-field>
 
       <mat-form-field>
@@ -52,6 +53,11 @@
       <!--      <button [disabled]="form.invalid" id="create-button" mat-raised-button color="accent" type="submit">Create-->
       <!--      </button>-->
       <button id="create-button" mat-raised-button color="accent" type="submit">Create
+      </button>
+      <br>
+      <button id="generate-value" mat-raised-button color="accent" type="button" (click)="generateFormValues()">Generate
+        Values
+
       </button>
 
     </form>

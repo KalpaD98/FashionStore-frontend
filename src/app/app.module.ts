@@ -17,6 +17,8 @@ import {ErrorComponent} from "./error/error.component";
 import {ErrorInterceptor} from "./error/error.interceptor";
 import {FooterComponent} from './footer/footer.component';
 import {CreateItemComponent} from './items/create-item/create-item.component';
+import { ItemListComponent } from './items/item-list/item-list.component';
+import { ItemComponent } from './items/item-list/item/item.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import {CreateItemComponent} from './items/create-item/create-item.component';
     ErrorComponent,
     CategoryComponent,
     FooterComponent,
-    CreateItemComponent
+    CreateItemComponent,
+    ItemListComponent,
+    ItemComponent
   ],
   imports: [
     BrowserModule,
