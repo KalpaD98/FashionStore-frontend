@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 export class ItemsService {
 
   private items: Item[] = [];
+  private itemCount: number;
   private itemsUpdated = new Subject<Item[]>();
   private BACKEND_URL = "http://localhost:3000/api/dev/items"
 
@@ -17,7 +18,13 @@ export class ItemsService {
   }
 
   getItems() {
-    this.http.get(this.BACKEND_URL).subscribe()
+    return this.http.get<{ message: string, numberOfItems: number, items: Item[] }>(this.BACKEND_URL).subscribe(
+      responseData => {
+        this.items = responseData.items;
+        this.itemCount = responseData.numberOfItems;
+        this.itemsUpdated.next([...this.items]);
+      }
+    )
   }
 
   getItem(id) {

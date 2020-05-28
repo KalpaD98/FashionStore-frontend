@@ -1,4 +1,12 @@
-<div class="col-md-4">
-
+<div class="col-lg-3 col-md-4 col-sm-6">
+  <div class="card" style="width: 18rem;">
+    <a routerLink="">
+      <div class="card-img-wrap"><img class="card-img-top" [src]="item.imagePath" [alt]="item.title"></div>
+    </a>
+    <div class="card-body">
+      <span class="card-title">{{item.title}}</span>
+      <br>
+      <span class="card-text" style="margin-right: 3px">Rs. {{item.price}}</span>
+    </div>
+  </div>
 </div>
-
