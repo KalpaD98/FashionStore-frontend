@@ -6,6 +6,7 @@ import {AuthService} from "../../auth/auth.service";
 import {mimeType} from "../validators/mime-type.validator";
 import {ItemsService} from "../items.service";
 import {ActivatedRoute, ParamMap} from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-create-item',
@@ -27,7 +28,8 @@ export class CreateItemComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private itemsService: ItemsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _snackBar: MatSnackBar
   ) {
   }
 
@@ -93,8 +95,10 @@ export class CreateItemComponent implements OnInit, OnDestroy {
     if (this.isCreateMode) {
       this.itemsService.addItem(item).subscribe(response => {
         this.recentlyCreatedId = response.savedItem._id.toString()
+        this.openSnackBar("Item Created: " + this.recentlyCreatedId, 'Close')
       }, error => {
         console.log(error)
+        this.openSnackBar("Item Creation failed : " + error, 'Close')
       })
     } else {
       this.itemsService.updateItem(item).subscribe(response => {
@@ -105,7 +109,7 @@ export class CreateItemComponent implements OnInit, OnDestroy {
     formDirective.resetForm();
     this.form.reset();
     this.isLoading = false;
-    window.scroll(0, 0);
+    // window.scroll(0, 0);
   }
 
   loadForm() {
@@ -121,7 +125,6 @@ export class CreateItemComponent implements OnInit, OnDestroy {
   }
 
   //for development purposes only
-
   generateFormValues() {
     this.form.patchValue({
       title: 'Dummy title',
@@ -129,7 +132,7 @@ export class CreateItemComponent implements OnInit, OnDestroy {
       type: 'dummy type',
       price: 10000,
       quantity: 10,
-      description: 'some long generated description please select image',
+      description: 'some long generated description => please select image',
     })
   }
 
@@ -144,7 +147,15 @@ export class CreateItemComponent implements OnInit, OnDestroy {
     reader.readAsDataURL(file);
   }
 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 3000,
+    });
+  }
+
   ngOnDestroy(): void {
     this.authStatusSub.unsubscribe()
   }
+
+
 }
