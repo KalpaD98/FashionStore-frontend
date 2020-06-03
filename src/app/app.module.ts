@@ -20,6 +20,8 @@ import {CreateItemComponent} from './items/create-item/create-item.component';
 import { ItemListComponent } from './items/item-list/item-list.component';
 import { ItemComponent } from './items/item-list/item/item.component';
 import { ItemDetailComponent } from './items/item-detail/item-detail.component';
+import {PasswordResetEmailComponent} from "./auth/password-reset-email/password-reset-email.component";
+import {PasswordResetComponent} from "./auth/password-reset/password-reset.component";
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { ItemDetailComponent } from './items/item-detail/item-detail.component';
     CreateItemComponent,
     ItemListComponent,
     ItemComponent,
-    ItemDetailComponent
+    ItemDetailComponent,
+    PasswordResetEmailComponent,
+    PasswordResetComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,6 @@ import { ItemDetailComponent } from './items/item-detail/item-detail.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
-
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

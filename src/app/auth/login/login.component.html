@@ -54,8 +54,11 @@
           minlength="6"
           (input)="onConfirmation(f)"
         >
-        <mat-error *ngIf="confirmationPassword.valid">confirmation password must match with password</mat-error>
+        <mat-error *ngIf="confirmationPassword.invalid">confirmation password must match with password</mat-error>
       </mat-form-field>
+      <mat-error *ngIf="!isConfirmationValid">confirmation password must match with
+        password
+      </mat-error>
       <br>
       <br>
       <button

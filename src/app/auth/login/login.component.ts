@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onSubmit(f: NgForm) {
     if (!f.valid) {
-      f.resetForm()
       return;
     }
     const email = f.value.email
@@ -36,13 +35,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     const password = f.value.password
     const confirmationPassword = f.value.confirmationPassword
 
-
     if (!this.isLoginMode && password !== confirmationPassword) {
       this.isConfirmationValid = false
       f.resetForm()
       return;
     }
-
 
     if (this.isLoginMode) {
       const authData = {email: email, password: password}
@@ -53,7 +50,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
       this.signUpUser(user)
     }
-
   }
 
   onConfirmation(f: NgForm) {
