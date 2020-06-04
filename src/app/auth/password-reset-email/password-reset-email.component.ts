@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-password-reset-email',
@@ -8,19 +9,26 @@ import {NgForm} from "@angular/forms";
 })
 export class PasswordResetEmailComponent implements OnInit {
   bottomSpacing = 170;
+  responseMessage: string;
 
-  constructor() { }
+  constructor(private authService: AuthService) {
+  }
 
   ngOnInit(): void {
   }
 
   onSubmit(f: NgForm) {
     if (!f.valid) {
-      f.resetForm()
       return;
     }
     const email = f.value.email
 
+    this.authService.passwordResetEmail(email).subscribe(
+      response => {
+        this.responseMessage = response.message
+      }
+    )
+    f.resetForm()
   }
 
 }

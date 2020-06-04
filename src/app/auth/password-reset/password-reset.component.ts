@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {ActivatedRoute, ParamMap} from "@angular/router";
+import {AuthService} from "../auth.service";
 
 
 @Component({
@@ -11,9 +12,10 @@ import {ActivatedRoute, ParamMap} from "@angular/router";
 export class PasswordResetComponent implements OnInit {
   bottomSpacing: any;
   isConfirmationValid = false;
-  resetToken:string;
+  resetToken: string;
+  resetResponse: string;
 
-  constructor(private route:ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -37,6 +39,13 @@ export class PasswordResetComponent implements OnInit {
       this.isConfirmationValid = false
       return;
     }
+
+    this.authService.passwordReset(password, this.resetToken).subscribe(
+      response => {
+        this.resetResponse = response.message
+      }
+    )
+    f.resetForm()
   }
 
   onConfirmation(f: NgForm) {

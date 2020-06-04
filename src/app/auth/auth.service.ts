@@ -49,6 +49,15 @@ export class AuthService {
   }
 
 
+  passwordResetEmail(email: string) {
+    return this.http.post<{ message: string }>(this.url + '/api/dev/users/reset-password-email', {email})
+  }
+
+  passwordReset(password: string, resetToken: string) {
+    return this.http.post<{ message: string }>(this.url + '/api/dev/users/reset-password', {password, resetToken})
+  }
+
+
   signup(user: User) {
     this.http.put<{ message: string, user: any }>(this.url + '/api/dev/users/signup', user).subscribe(
       response => {
@@ -79,7 +88,7 @@ export class AuthService {
           this._authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresIn * 1000) // *1000 to convert into mili seconds
-          this.saveAuthData(this.token, expirationDate, this.userId, this.userEmail, this.userRole );
+          this.saveAuthData(this.token, expirationDate, this.userId, this.userEmail, this.userRole);
           this.router.navigate(['/']);
         }
       },
