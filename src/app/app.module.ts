@@ -22,6 +22,7 @@ import { ItemComponent } from './items/item-list/item/item.component';
 import { ItemDetailComponent } from './items/item-detail/item-detail.component';
 import {PasswordResetEmailComponent} from "./auth/password-reset-email/password-reset-email.component";
 import {PasswordResetComponent} from "./auth/password-reset/password-reset.component";
+import { EmailVerificationComponent } from './auth/email-verification/email-verification.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {PasswordResetComponent} from "./auth/password-reset/password-reset.compo
     ItemComponent,
     ItemDetailComponent,
     PasswordResetEmailComponent,
-    PasswordResetComponent
+    PasswordResetComponent,
+    EmailVerificationComponent
   ],
   imports: [
     BrowserModule,
