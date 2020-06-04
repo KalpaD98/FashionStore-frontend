@@ -52,6 +52,9 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {
   }
 
+  verifyUserEmail(verificationToken: string) {
+    return this.http.post<{ message: string }>(this.url + '/api/dev/users/email-verification', {verificationToken})
+  }
 
   passwordResetEmail(email: string) {
     return this.http.post<{ message: string }>(this.url + '/api/dev/users/reset-password-email', {email})

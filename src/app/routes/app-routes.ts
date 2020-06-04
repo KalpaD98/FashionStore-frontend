@@ -5,6 +5,7 @@ import {CreateItemComponent} from "../items/create-item/create-item.component";
 import {ItemListComponent} from "../items/item-list/item-list.component";
 import {PasswordResetEmailComponent} from "../auth/password-reset-email/password-reset-email.component";
 import {PasswordResetComponent} from "../auth/password-reset/password-reset.component";
+import {EmailVerificationComponent} from "../auth/email-verification/email-verification.component";
 
 
 const appRoutes: Routes = [
@@ -14,6 +15,7 @@ const appRoutes: Routes = [
   {path: 'category', component: CategoryComponent},
   {path: 'create-item', component: CreateItemComponent},
   {path: "edit/:itemId", component: CreateItemComponent},
+  {path: "email-verification/:verificationToken", component: EmailVerificationComponent},
   {path: "all-items", component: ItemListComponent},
 ];
 
