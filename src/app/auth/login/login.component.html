@@ -27,7 +27,46 @@
         >
         <mat-error *ngIf="email.invalid">Please enter a valid email address</mat-error>
       </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="password"
+          placeholder="Password"
+          name="password"
+          ngModel
+          #password="ngModel"
+          required
+          minlength="6"
+          (input)="!isLoginMode && onConfirmation(f)"
 
+        >
+        <mat-error *ngIf="password.invalid">Password must contain at least 6 characters</mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="!isLoginMode">
+        <input
+          matInput
+          type="password"
+          placeholder="Confirm Password"
+          name="confirmationPassword"
+          ngModel
+          #confirmationPassword="ngModel"
+          required
+          minlength="6"
+          (input)="onConfirmation(f)"
+        >
+        <mat-error *ngIf="confirmationPassword.valid">confirmation password must match with password</mat-error>
+      </mat-form-field>
+      <br>
+      <br>
+      <button
+        mat-raised-button
+        color="accent"
+        type="submit"
+        *ngIf="!isLoading"
+        [disabled]="!f.valid || !isConfirmationValid"
+      >
+        {{isLoginMode ? 'Login' : 'Sign Up'}}
+      </button>
 
       <button
         mat-raised-button
@@ -38,11 +77,9 @@
       >
         {{isLoginMode ? 'I dont have an account' : 'Already have an account' }}
       </button>
-      <a class="" routerLink="/password-reset-email">forgot Password ?</a>
     </form>
-
   </mat-card>
 </div>
-<div [style.margin-bottom.px]="bottomSpacing">
+<div [style.margin-bottom.px]="bottomSpacing" >
 
 </div>
