@@ -1,6 +1,7 @@
 <div class="container">
   <mat-card>
     <h3 *ngIf="responseMessage">{{responseMessage}}</h3>
+    <h4 *ngIf="responseMessage">An email verification link has been sent to your email click on it to get verified</h4>
     <mat-spinner *ngIf="isLoading"></mat-spinner>
     <form *ngIf="!isLoading" #f="ngForm" (submit)="onSubmit(f)">
       <mat-form-field *ngIf="!isLoginMode">
@@ -78,7 +79,10 @@
       >
         {{isLoginMode ? 'I dont have an account' : 'Already have an account' }}
       </button>
+      <br>
+      <a *ngIf="isLoginMode" routerLink="/password-reset-email">forgot password?</a>
     </form>
+    <h5 *ngIf="responseMessage">Only verified users can buy products</h5>
   </mat-card>
 </div>
 <div [style.margin-bottom.px]="bottomSpacing">

@@ -15,7 +15,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   isConfirmationValid = true
   error: string = null
   private authStatusSubscription: Subscription;
-  bottomSpacing = 231
+  bottomSpace = 196;
+  bottomSpacing = this.bottomSpace
   responseMessage: string
 
   constructor(private authService: AuthService) {
@@ -81,7 +82,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onSwitchMode(f: NgForm) {
     this.isLoginMode = !this.isLoginMode
-    this.bottomSpacing = this.bottomSpacing == 231 ? 118 : 231
+    this.bottomSpacing = this.bottomSpacing == this.bottomSpace ? 103 : this.bottomSpace
     f.resetForm()
   }
 
@@ -92,4 +93,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.authStatusSubscription.unsubscribe()
   }
+
+
+  //for dev purposes
+  // generateFormValues(f: NgForm) {
+  //   f.value.email = 'test@test.com'
+  //   f.value.username = 'testUser'
+  //   f.value.password = '123456'
+  //   f.value.confirmationPassword = f.value.password
+  // }
+
 }
