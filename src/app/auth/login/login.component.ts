@@ -15,7 +15,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   isConfirmationValid = true
   error: string = null
   private authStatusSubscription: Subscription;
-  bottomSpacing = 231;
+  bottomSpacing = 231
+  responseMessage: string
 
   constructor(private authService: AuthService) {
   }
@@ -63,7 +64,18 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   signUpUser(user: User) {
-    this.authService.signup(user)
+    this.authService.signup(user).subscribe(
+      response => {
+        this.isLoginMode = true
+        this.responseMessage = response.message
+      },
+      error => {
+        this.authService.nextAuthStatusListener(false)
+        this.isLoginMode = false
+
+        //TODO:redirect to sign up with error
+      }
+    )
   }
 
 

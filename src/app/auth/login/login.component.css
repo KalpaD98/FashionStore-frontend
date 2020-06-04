@@ -1,9 +1,15 @@
-.spacer{
+.spacer {
   margin-top: 5rem;
   margin-bottom: auto;
 }
 
-.container{
+h3 {
+  color: green;
+  font-family: Avenir, sans-serif;
+  text-align: center
+}
+
+.container {
   align-content: center;
   width: 80%;
   margin: auto;
@@ -14,18 +20,19 @@
 /*  !*margin-bottom: 118px;*!*/
 /*}*/
 
-form{
+form {
   text-align: center;
 }
-mat-form-field{
+
+mat-form-field {
   width: 100%;
 }
 
-mat-spinner{
+mat-spinner {
   margin: auto;
 }
 
-button{
+button {
   margin-left: 5px;
   margin-right: 5px;
 }

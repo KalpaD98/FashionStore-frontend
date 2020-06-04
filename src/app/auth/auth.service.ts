@@ -29,6 +29,10 @@ export class AuthService {
     return this._authStatusListener.asObservable();
   }
 
+  nextAuthStatusListener(status: boolean) {
+    this._authStatusListener.next(status)
+  }
+
   get isAuthenticated() {
     return this._isAuthenticated;
   }
@@ -59,17 +63,7 @@ export class AuthService {
 
 
   signup(user: User) {
-    this.http.put<{ message: string, user: any }>(this.url + '/api/dev/users/signup', user).subscribe(
-      response => {
-        //TODO:auto login
-        this.login(user)
-      },
-      error => {
-        this._authStatusListener.next(false);
-        this.router.navigate(['/login'])
-        //TODO:redirect to sign up with error
-      }
-    )
+    return this.http.put<{ message: string, user: any }>(this.url + '/api/dev/users/signup', user)
   }
 
   login(user: User) {

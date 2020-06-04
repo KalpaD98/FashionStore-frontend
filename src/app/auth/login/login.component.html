@@ -1,5 +1,6 @@
 <div class="container">
   <mat-card>
+    <h3 *ngIf="responseMessage">{{responseMessage}}</h3>
     <mat-spinner *ngIf="isLoading"></mat-spinner>
     <form *ngIf="!isLoading" #f="ngForm" (submit)="onSubmit(f)">
       <mat-form-field *ngIf="!isLoginMode">
@@ -80,6 +81,6 @@
     </form>
   </mat-card>
 </div>
-<div [style.margin-bottom.px]="bottomSpacing" >
+<div [style.margin-bottom.px]="bottomSpacing">
 
 </div>
